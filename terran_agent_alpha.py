@@ -59,7 +59,7 @@ class QLearningTable:
         
         self.disallowed_actions[observation] = excluded_actions
         
-        state_action = self.q_table.ix[observation, :]
+        state_action = self.q_table.loc[observation, :]
         
         for excluded_action in excluded_actions:
             del state_action[excluded_action]
@@ -81,9 +81,9 @@ class QLearningTable:
         self.check_state_exist(s_)
         self.check_state_exist(s)
         
-        q_predict = self.q_table.ix[s, a] # 현재 state
+        q_predict = self.q_table.loc[s, a] # 현재 state
         
-        s_rewards = self.q_table.ix[s_, :]
+        s_rewards = self.q_table.loc[s_, :]
         
         if s_ in self.disallowed_actions:
             for excluded_action in self.disallowed_actions[s_]:
@@ -95,7 +95,7 @@ class QLearningTable:
             q_target = r
             
         # update
-        self.q_table.ix[s, a] += self.lr * (q_target - q_predict)
+        self.q_table.loc[s, a] += self.lr * (q_target - q_predict)
 
     def check_state_exist(self, state):
         if state not in self.q_table.index:
@@ -561,7 +561,7 @@ class TerranAgent(base_agent.BaseAgent):
                         minerals = self.get_units_by_type(obs, units.Neutral.MineralField)
                         if minerals:
                             mineral = random.choice(minerals)
-                            self.command_center_rallied = True;
+                            self.command_center_rallied = True
 
                             return actions.FUNCTIONS.Rally_Workers_screen("now", (mineral.x, mineral.y))
 
