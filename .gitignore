@@ -1,0 +1,3 @@
+# ignore png, pdf files
+*.png
+*.pdf
